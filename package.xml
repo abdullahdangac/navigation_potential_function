@@ -3,9 +3,9 @@
 <package format="3">
   <name>navigation_potential_function</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="dangacabdullah@gmail.com">abdullah</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Potential Function Navigation</description>
+  <maintainer email="dangacabdullah@gmail.com">Abdullah Dangac</maintainer>
+  <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

@@ -1,0 +1,43 @@
+/navigation_potential_function_node_0:
+  ros__parameters:
+    robot_id: 0
+    num_of_robots: 4
+    num_of_obstacles: 0
+    obstacle_dist: 0
+    start_position_of_robot: [1.0, 5.0]
+    goal_position_of_robot: [6.0, 3.0]
+    radius_of_robots: 1.0
+    radius_of_boundry: 15.0
+
+/navigation_potential_function_node_1:
+  ros__parameters:
+    robot_id: 1
+    num_of_robots: 4
+    num_of_obstacles: 0
+    obstacle_dist: 0
+    start_position_of_robot: [3.0, 2.0]
+    goal_position_of_robot: [8.0, 1.0]
+    radius_of_robots: 1.0
+    radius_of_boundry: 15.0
+
+/navigation_potential_function_node_2:
+  ros__parameters:
+    robot_id: 2
+    num_of_robots: 4
+    num_of_obstacles: 0
+    obstacle_dist: 0
+    start_position_of_robot: [7.0, 8.0]
+    goal_position_of_robot: [3.0, 5.0]
+    radius_of_robots: 1.0
+    radius_of_boundry: 15.0
+
+/navigation_potential_function_node_3:
+  ros__parameters:
+    robot_id: 3
+    num_of_robots: 4
+    num_of_obstacles: 0
+    obstacle_dist: 0
+    start_position_of_robot: [8.0, 3.0]
+    goal_position_of_robot: [1.0, 7.0]
+    radius_of_robots: 1.0
+    radius_of_boundry: 15.0

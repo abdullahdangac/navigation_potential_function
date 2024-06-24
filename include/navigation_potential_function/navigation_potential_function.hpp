@@ -1,126 +1,153 @@
-#ifndef NAVIGATION_POTENTIAL_FUNCTION
-#define NAVIGATION_POTENTIAL_FUNCTION
+#ifndef NAVIGATION_POTENTIAL_FUNCTION_HPP
+#define NAVIGATION_POTENTIAL_FUNCTION_HPP
 
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <stdlib.h>
 #include <cfloat>
 #include <vector>
 
 
-class NavigationController
+class NavigationPotentialFunction
 {
   public:
-    NavigationController();
-
-    //static void fcn_A_B(int numOfRobots, int numOfParts, double partDist, mpfr_t A, mpfr_t B, std::vector<std::vector<double>> b_, std::vector<std::vector<double> > bt_,  std::vector<std::vector<double> > brs_, std::vector<std::vector<double> > bp, double ro,int rID);
-    static void calc_gamma_beta(int numOfRobots, int numOfParts, double partDist, double A, double B, std::vector<std::vector<double>> b_, std::vector<std::vector<double>> bt_, std::vector<std::vector<double>> bp, double ro, int rID);
-    
     /**
-     * Calculates gamma function that encodes Euclidean distance from goal point
-     * 
-     * @param num_of_robots Number of robots in the workspace
-     * @param Y Value of gamma
-     * @param robot Pose vectors of robots in the workspace
-     * @param goal Position vectors of goals of robots in the workspace
+     * Constructor with no parameter
      */
-    static void calc_Y(int num_of_robots, double &Y, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> goal);
+    NavigationPotentialFunction(void);
 
     /**
-     * Calculates beta function that encodes distance from free space boundry and obstacles
+     * Constructor with parameters
      * 
+     * @param robot_ID Current robot (Robot ID)
      * @param num_of_robots Number of robots in the workspace
      * @param num_of_obstacles Number of obstacles in the workspace
      * @param obstacle_dist
-     * @param B Value of beta
-     * @param robot Pose vectors of robots in the workspace
-     * @param obstacle Position vectors of goals of robots in the workspace
      * @param r_boundry Radius of the workspace
-     * @param robot_ID Current robot (Robot ID)
+     * @param robot Pose vectors of robots in the workspace
+     * @param goal Position vectors of goals of robots in the workspace
+     * @param obstacle Pose vectors of obstacles in the workspace
+     * @param k Tune parameter of navigation function
      */
-    static void calc_B(int num_of_robots, int num_of_obstacles, double obstacle_dist, double &B, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> obstacle, double r_boundry, int robot_ID);
+    NavigationPotentialFunction(int robot_ID, int num_of_robots, int num_of_obstacles, double obstacle_dist, double r_boundry, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> goal, std::vector<std::vector<double>> obstacle, double k);
+
+    /**
+     * Sets parameters of potential function navigation
+     * 
+     * @param robot_ID Current robot (Robot ID)
+     * @param num_of_robots Number of robots in the workspace
+     * @param num_of_obstacles Number of obstacles in the workspace
+     * @param obstacle_dist
+     * @param r_boundry Radius of the workspace
+     * @param robot Pose vectors of robots in the workspace
+     * @param goal Position vectors of goals of robots in the workspace
+     * @param obstacle Pose vectors of obstacles in the workspace
+     * @param k Tune parameter of navigation function
+     */
+    void set_navigation(int robot_ID, int num_of_robots, int num_of_obstacles, double obstacle_dist, double r_boundry, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> goal, std::vector<std::vector<double>> obstacle, double k);
+
+    /**
+     * Control robots with potential function navigaton
+     */
+    void robot_controller(void);
+
+    /**
+     * Calculates gamma function that encodes Euclidean distance from goal point
+     */
+    void calc_Y(void);
+
+    /**
+     * Calculates beta function that encodes distance from free space boundry and obstacles
+     */
+    void calc_B(void);
 
     /**
      * Calculates the derivative of Y (gamma) with respect to x
-     * 
-     * @param dY_dx
-     * @param robot
-     * @param goal
-     * @param robot_ID
      */
-    static void calc_dY_dx(double &dY_dx, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> goal, int robot_ID);
+    void calc_dY_dx(void);
 
     /**
      * Calculates the derivative of Y (gamma) with respect to y
-     * 
-     * @param dY_dy
-     * @param robot
-     * @param goal
-     * @param robot_ID
      */
-    static void calc_dY_dy(double &dY_dy, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> goal, int robot_ID);
+    void calc_dY_dy(void);
 
     /**
      * Calculates the derivative of B (beta) with respect to x
-     * 
-     * @param num_of_robots
-     * @param num_of_obstacles
-     * @param obstacle_dist
-     * @param dB_dx
-     * @param B
-     * @param robot
-     * @param obstacle
-     * @param r_boundry
-     * @param robot_ID
      */
-    static void calc_dB_dx(int num_of_robots, int num_of_obstacles, double obstacle_dist, double &dB_dx, double B, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> obstacle, double r_boundry, int robot_ID);
+    void calc_dB_dx(void);
 
     /**
      * Calculates the derivative of B (beta) with respect to y
-     * 
-     * @param num_of_robots
-     * @param num_of_obstacles
-     * @param obstacle_dist
-     * @param dB_dy
-     * @param B
-     * @param robot
-     * @param obstacle
-     * @param r_boundry
-     * @param robot_ID
      */
-    static void calc_dB_dy(int num_of_robots, int num_of_obstacles, double obstacle_dist, double &dB_dy, double B, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> obstacle, double r_boundry, int robot_ID);
+    void calc_dB_dy(void);
+
+    /**
+     * Calculates Q (phi-hat) function
+     */
+    void calc_Q(void);
+
+    /**
+     * Calculates the derivative of Q (phi-hat) respect to Y (gamma)
+     */
+    void calc_dQ_dY(void);
+
+    /**
+     * Calculates the derivative of Q (phi-hat) respect to B (beta)
+     */
+    void calc_dQ_dB(void);
+
+    /**
+     * Calculates the derivative of F (phi) respect to Q (phi-hat)
+     */
+    void calc_dF_dQ(void);
 
     /**
      * Calculates the derivative of F (phi) with respect to x
-     * 
-     * @param dF_dx
-     * @param dQ_dx
-     * @param Y
-     * @param B
-     * @param kk
-     * @param kq
-     * @param dY_dx
-     * @param dB_dx
      */
-    static void calc_dF_dx(double &dF_dx, double &dQ_dx, double Y, double B, int kk, int kq, double dY_dx, double dB_dx);
+    void calc_dF_dx(void);
 
     /**
      * Calculates the derivative of F (phi) with respect to y
-     * 
-     * @param dF_dy
-     * @param dQ_dy
-     * @param Y
-     * @param B
-     * @param kk
-     * @param kq
-     * @param dY_dy
-     * @param dB_dy
      */
-    static void calc_dF_dy(double &dF_dy, double &dQ_dy, double Y, double B, int kk, int kq, double dY_dy, double dB_dy);
+    void calc_dF_dy(void);
 
-    //static void robotContoller(double bout[],double* boutLengthOfVel, int numOfRobots, int numOfParts, double partDist, std::vector<std::vector<double>> bin_, std::vector<std::vector<double>> bt_, std::vector<std::vector<double>> bp, double ro, double kkLimits[], int rID);
-    static void robot_controller(double bout[], double* bout_length_of_vel, int num_of_robots, int num_of_obstacles, double obstacle_dist, std::vector<std::vector<double>> robot, std::vector<std::vector<double>> goal, std::vector<std::vector<double>> obstacle, double r_boundry, double kk_limits[], int robot_ID);
+    /**
+     * @see Paper notation
+     */
+    double Y;  //!< gamma
+    double B;  //!< beta
+    //double F;  //!< phi
+    double Q;  //!< phi-hat
 
+    double dY_dx;  //!< derivative of gamma with respect to x
+    double dY_dy;  //!< derivative of gamma with respect to y
+
+    double dB_dx;  //!< derivative of beta with respect to x
+    double dB_dy;  //!< derivative of beta with respect to y
+
+    double dQ_dY;  //!< derivative of phi-hat with respect to gamma
+    double dQ_dB;  //!< derivative of phi-hat with respect to beta
+
+    double dF_dQ;  //!< derivative of phi with respect to phi-hat
+
+    double dF_dx;  //!< derivative of phi with respect to x
+    double dF_dy;  //!< derivative of phi with respect to y
+
+    int robot_ID;  //!< Current (main) robot
+    int num_of_robots;  //!< Number of robots in the workspace
+    int num_of_obstacles;  //!< Number of obstacles in the workspace
+
+    double obstacle_dist;  //!< 
+    double r_boundry;  //!< Radius of the workspace boundry
+
+    std::vector<std::vector<double>> robot;  //!< Pose vectors of robots in the workspace
+    std::vector<std::vector<double>> goal;  //!< Position vectors of goals of robots in the workspace
+    std::vector<std::vector<double>> obstacle;  //!< Pose vectors of obstacles in the workspace
+
+    double k;  //!< Tune parameter of navigation function
+    //double k_limits[2];  //!< Limits of k parameter (k_limits[0]: min limit, k_limits[1]: max limit)
+
+    double v_robot[2];  //!< Linear velocities of the robot (v_robot[0]: x velocity, v_robot[1]: y velocity)
 };
 
 
@@ -143,6 +170,7 @@ goal
 obstacle
     obstacle[...][0] -> x of obstacle
     obstacle[...][1] -> y of obstacle
+    obstacle[...][2] -> radius of obstacle
 
 
 ========================================
@@ -166,4 +194,4 @@ b_k -> robot_k -> other robots for another robot (for beta calculation)
 
 */
 
-#endif /* NAVIGATION_POTENTIAL_FUNCTION */
+#endif /* NAVIGATION_POTENTIAL_FUNCTION_HPP */
