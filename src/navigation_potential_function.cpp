@@ -358,8 +358,11 @@ void NavigationPotentialFunction::robot_controller(void)
     dF_dx =  dF_dx / norm;
     dF_dy =  dF_dy / norm;
 
-    v_robot[0] = -1 * dF_dx;
-    v_robot[1] = -1 * dF_dy;
+    if (!std::isnan(dF_dx))
+        v_robot[0] = -1 * dF_dx;
+    
+    if (!std::isnan(dF_dy))
+        v_robot[1] = -1 * dF_dy;
     // std::cout << "v_x: " << v_robot[0] << std::endl;
     // std::cout << "v_y: " << v_robot[1] << std::endl;
 }

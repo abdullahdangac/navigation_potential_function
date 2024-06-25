@@ -45,3 +45,30 @@ def generate_launch_description():
             ]
         )
     ])
+
+# def generate_launch_description():
+#     return LaunchDescription([
+#         Node(
+#             package='turtlesim',
+#             executable='turtlesim_node',
+#             name='sim',
+#             output='screen',
+#         ),
+#         TimerAction(
+#             period=0.1,
+#             actions=[
+#                 ExecuteProcess(
+#                     cmd=['ros2', 'service', 'call', '/kill', 'turtlesim/srv/Kill', '{name: "turtle1"}'],
+#                     output='screen'
+#                 ),
+#                 TimerAction(
+#                 period=1.0,
+#                 actions=[
+#                     ExecuteProcess(
+#                         cmd=['ros2', 'service', 'call', '/spawn', 'turtlesim/srv/Spawn', '{x: 5.5, y: 5.5, theta: 0.0, name: "turtle0"}'],
+#                         output='screen'
+#                     )]
+#                 )
+#             ]
+#         )
+#     ])

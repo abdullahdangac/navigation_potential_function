@@ -35,6 +35,11 @@ class PIDController {
     PIDController(double Kp, double Ki, double Kd);
 
     /**
+     * Deconstructor of PID controller
+     */
+    ~PIDController(void);
+
+    /**
      * Sets PID controller
      * 
      * @param Kp Proportional gain
@@ -67,6 +72,11 @@ class RosSimulation : public rclcpp::Node {
      */
     RosSimulation();
 
+    /**
+     * Deconstructor of ROS simulation
+     */
+    ~RosSimulation();
+
   private:
     /**
      * Control function for multi-robot
@@ -86,12 +96,12 @@ class RosSimulation : public rclcpp::Node {
      * @param sense_dist Distanse of sensing
      * @param robot Position vectors of robots in the workspace
      */
-    void find_robots_in_range(int robot_ID, int num_of_robots, double sense_dist, vector<vector<double>> robot)
+    void find_robots_in_range(int robot_ID, int num_of_robots, double sense_dist, vector<vector<double>> robot);
 
-    double robot_heading;
+    double robot_heading;  //!< Heading of robot
 
-    PIDController v_pid;
-    PIDController w_pid;
+    PIDController v_pid;  //!< PID controller for linear velocity
+    PIDController w_pid;  //!< PID controller for angular velocity
 
     NavigationPotentialFunction robot_navigation;  //!< Potential function navigation object
 

@@ -24,7 +24,7 @@ class NavigationPotentialFunction
      * @param num_of_obstacles Number of obstacles in the workspace
      * @param obstacle_dist
      * @param r_boundry Radius of the workspace
-     * @param robot Pose vectors of robots in the workspace
+     * @param robot Position vectors of robots in the workspace
      * @param goal Position vectors of goals of robots in the workspace
      * @param obstacle Pose vectors of obstacles in the workspace
      * @param k Tune parameter of navigation function
@@ -39,7 +39,7 @@ class NavigationPotentialFunction
      * @param num_of_obstacles Number of obstacles in the workspace
      * @param obstacle_dist
      * @param r_boundry Radius of the workspace
-     * @param robot Pose vectors of robots in the workspace
+     * @param robot Position vectors of robots in the workspace
      * @param goal Position vectors of goals of robots in the workspace
      * @param obstacle Pose vectors of obstacles in the workspace
      * @param k Tune parameter of navigation function

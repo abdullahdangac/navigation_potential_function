@@ -25,7 +25,7 @@ include_directories(${PROJECT_INCLUDE_DIR}
                     ${BOOST_INCLUDE_DIRS}
                     ${catkin_INCLUDE_DIRS})
 
-# Generate navigation potential function shared library
+# Generate navigation potential function static library
 add_library(navigation_potential_function_lib src/navigation_potential_function.cpp)
 
 add_executable(simulation src/ros_simulation.cpp)
